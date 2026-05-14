@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 13. 05. 2026 by Benjamin Walkenhorst
 // (c) 2026 Benjamin Walkenhorst
-// Time-stamp: <2026-05-14 09:42:05 krylon>
+// Time-stamp: <2026-05-14 11:37:18 krylon>
 
 package model
 
@@ -10,6 +10,8 @@ import (
 	"net/url"
 	"path"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -61,3 +63,18 @@ func (f *File) GetParentFolder() string {
 func (f *File) PathURL() string {
 	return "file://" + url.PathEscape(f.Path)
 } // func (f *File) PathURL() string
+
+// OrdString returns a textual representation of the File's Ord.
+func (f *File) OrdString() string {
+	if len(f.Ord) == 0 {
+		return ""
+	}
+
+	var slist = make([]string, len(f.Ord))
+
+	for idx, val := range f.Ord {
+		slist[idx] = strconv.FormatInt(val, 10)
+	}
+
+	return strings.Join(slist, ",")
+} // func (f *File) OrdString() string
