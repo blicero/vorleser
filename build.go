@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 01. 02. 2021 by Benjamin Walkenhorst
 // (c) 2021 Benjamin Walkenhorst
-// Time-stamp: <2026-05-13 14:27:38 krylon>
+// Time-stamp: <2026-05-14 09:07:21 krylon>
 
 //go:build ignore
 
@@ -63,14 +63,17 @@ var candidates = map[string][]string{
 	"vet": {
 		"logdomain",
 		"common",
+		"model",
 	},
 	"lint": {
 		"logdomain",
 		"common",
+		"model",
 	},
 	"nilaway": {
 		"common",
 		"database",
+		"model",
 	},
 	"test": {
 		"model",
