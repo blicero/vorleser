@@ -2,20 +2,20 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 14. 05. 2026 by Benjamin Walkenhorst
 // (c) 2026 Benjamin Walkenhorst
-// Time-stamp: <2026-05-14 11:40:07 krylon>
+// Time-stamp: <2026-05-14 12:12:31 krylon>
 
 package database
 
 import "github.com/blicero/vorleser/database/query"
 
 var qdb = map[query.ID]string{
-	query.FolderAdd:            "INSERT INTO folder (path) VALUES (?)",
+	query.FolderAdd:            "INSERT INTO folder (path) VALUES (?) RETURNING id",
 	query.FolderGetByID:        "SELECT path, last_scan FROM folder WHERE id = ?",
 	query.FolderGetByPath:      "SELECT id, last_scan FROM folder where path = ?",
 	query.FolderGetAll:         "SELECT id, path, last_scan FROM folder",
 	query.FolderUpdateLastScan: "UPDATE folder SET last_scan = ? WHERE id = ?",
 	query.FolderDelete:         "DELETE FROM folder WHERE id = ?",
-	query.FileAdd:              "INSERT INTO file (folder_id, book_id, path) VALUES (?, ?, ?)",
+	query.FileAdd:              "INSERT INTO file (folder_id, book_id, path) VALUES (?, ?, ?) RETURNING id",
 	query.FileGetByFolder: `
 SELECT
     id,
