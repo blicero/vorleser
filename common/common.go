@@ -2,9 +2,11 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 13. 05. 2026 by Benjamin Walkenhorst
 // (c) 2026 Benjamin Walkenhorst
-// Time-stamp: <2026-05-13 14:33:18 krylon>
+// Time-stamp: <2026-05-14 09:48:17 krylon>
 
 package common
+
+//go:generate ./build_time_stamp.pl
 
 import (
 	"crypto/sha512"
@@ -21,6 +23,7 @@ import (
 	"time"
 
 	"github.com/blicero/krylib"
+	"github.com/blicero/vorleser/logdomain"
 	"github.com/google/uuid"
 	"github.com/hashicorp/logutils"
 )
@@ -32,8 +35,8 @@ import (
 // TimestampFormat is the default format for timestamp used throughout the
 // application.
 const (
-	AppName                  = "Newsroom"
-	Version                  = "0.7.0"
+	AppName                  = "Vorleser"
+	Version                  = "0.0.1"
 	Debug                    = true
 	TimestampFormatMinute    = "2006-01-02 15:04"
 	TimestampFormat          = "2006-01-02 15:04:05"
