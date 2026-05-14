@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 14. 05. 2026 by Benjamin Walkenhorst
 // (c) 2026 Benjamin Walkenhorst
-// Time-stamp: <2026-05-14 10:44:57 krylon>
+// Time-stamp: <2026-05-14 10:49:07 krylon>
 
 // Package database provides access to the ... well... database.
 package database
@@ -167,7 +167,7 @@ func (db *Database) initialize() error {
 		return err
 	}
 
-	for _, q := range qInit {
+	for _, q := range qinit {
 		db.log.Printf("[TRACE] Execute init query:\n%s\n",
 			q)
 		if _, err = tx.Exec(q); err != nil {
