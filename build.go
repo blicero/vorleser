@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 01. 02. 2021 by Benjamin Walkenhorst
 // (c) 2021 Benjamin Walkenhorst
-// Time-stamp: <2026-05-14 09:07:21 krylon>
+// Time-stamp: <2026-05-14 09:50:32 krylon>
 
 //go:build ignore
 
@@ -27,6 +27,7 @@ import (
 	"time"
 
 	"github.com/blicero/krylib"
+	"github.com/blicero/vorleser/common"
 
 	"github.com/hashicorp/logutils"
 )
@@ -229,7 +230,7 @@ This flag is not case-sensitive.`, strings.Join(orderedSteps, ", ")))
 	if steps["build"] {
 		var output []byte
 
-		dbg.Println("[INFO] Building Newsroom...")
+		dbg.Println("[INFO] Building %s...", common.AppName)
 
 		// Put aside a possibly existing binary
 		if err = backupExecutable(); err != nil {
@@ -249,7 +250,8 @@ This flag is not case-sensitive.`, strings.Join(orderedSteps, ", ")))
 		}
 		var cmd = exec.Command("go", args...)
 		if output, err = cmd.CombinedOutput(); err != nil {
-			dbg.Printf("[ERROR] Error building newsroom: %s\n%s\n",
+			dbg.Printf("[ERROR] Error building %s: %s\n%s\n",
+				common.AppName,
 				err.Error(),
 				output)
 			os.Exit(1)
@@ -360,7 +362,7 @@ func worker(n int, op string, pkgq <-chan string, errq chan<- error, wg *sync.Wa
 	defer wg.Done()
 
 	for folder := range pkgq {
-		pkg = "github.com/blicero/newsroom/" + folder
+		pkg = "github.com/blicero/vorleser/" + folder
 		dbg.Printf("[TRACE] Worker %d call %s on %s\n",
 			n,
 			op,
@@ -387,7 +389,7 @@ func worker(n int, op string, pkgq <-chan string, errq chan<- error, wg *sync.Wa
 				cmd = exec.Command("go", op, "-v", "-timeout", "30m", "-race", pkg)
 			}
 		case "nilaway":
-			cmd = exec.Command(op, "-include-pkgs=github.com/blicero/newsroom", pkg)
+			cmd = exec.Command(op, "-include-pkgs=github.com/blicero/vorleser", pkg)
 		default:
 			cmd = exec.Command("go", op, "-v", pkg)
 		}
@@ -454,7 +456,7 @@ func initLog(min string) error {
 		writer io.Writer
 		// Trailing space because Logger does not seem to insert one
 		// between fields of the line.
-		logName = "newsroom.build "
+		logName = "vorleser.build "
 	)
 
 	// fmt.Printf("Creating Logger with minLevel = %q\n",
@@ -484,8 +486,8 @@ func initLog(min string) error {
 
 func backupExecutable() error {
 	const (
-		execPath   = "newsroom"
-		backupPath = "bak.newsroom"
+		execPath   = "vorleser"
+		backupPath = "bak.vorleser"
 	)
 	var (
 		exists bool
