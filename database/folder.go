@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 14. 05. 2026 by Benjamin Walkenhorst
 // (c) 2026 Benjamin Walkenhorst
-// Time-stamp: <2026-05-14 11:08:46 krylon>
+// Time-stamp: <2026-05-14 11:12:49 krylon>
 
 package database
 
@@ -35,7 +35,7 @@ func (db *Database) FolderAdd(folder *model.Folder) error {
 
 	var rows *sql.Rows
 EXEC_QUERY:
-	if rows, err = stmt.Query(); err != nil {
+	if rows, err = stmt.Query(folder.Path); err != nil {
 		if worthARetry(err) {
 			waitForRetry()
 			goto EXEC_QUERY
