@@ -2,7 +2,7 @@
 // -*- mode: go; coding: utf-8; -*-
 // Created on 14. 05. 2026 by Benjamin Walkenhorst
 // (c) 2026 Benjamin Walkenhorst
-// Time-stamp: <2026-05-14 10:42:13 krylon>
+// Time-stamp: <2026-05-14 11:40:07 krylon>
 
 package database
 
@@ -19,7 +19,7 @@ var qdb = map[query.ID]string{
 	query.FileGetByFolder: `
 SELECT
     id,
-    book_id,
+    COALESCE(book_id, 0),
     path,
     COALESCE(title, ''),
     COALESCE(ord, ''),
